@@ -1,0 +1,88 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package controlador;
+
+import java.util.ArrayList;
+import modelo.Animal;
+import modelo.DatoInvalidoException;
+import modelo.Sistema;
+import modelo.Familia;
+import modelo.Empresa;
+
+/**
+ *
+ * @author Ruben Derigo - 287176
+ */
+public class Controlador {
+
+    private Sistema sistema = new Sistema();
+
+    public void altaAnimal(String codigo, String nombre, String temperamento, String textoPeso, boolean disponible) throws DatoInvalidoException {
+        if (codigo.equals("") || nombre.equals("") || temperamento.equals("") || textoPeso.equals("")) {
+            throw new DatoInvalidoException("Debe completar todos los campos");
+        }
+        if (this.sistema.existeAnimal(codigo)) {
+            throw new DatoInvalidoException("Ya existe un animal con ese codigo");
+        }
+
+        double peso;
+        try {
+            peso = Double.parseDouble(textoPeso);
+        } catch (NumberFormatException e) {
+            throw new DatoInvalidoException("El peso debe ser un numero");
+        }
+        if (peso <= 0) {
+            throw new DatoInvalidoException("El peso debe ser mayor a cero");
+        }
+
+        String estado;
+        if (disponible) {
+            estado = "Disponible para adoptar";
+        } else {
+            estado = "No disponible para adoptar";
+        }
+
+        Animal animal = new Animal(codigo, nombre, temperamento, peso, estado);
+        this.sistema.agregarAnimal(animal);
+    }
+
+    public void altaFamilia(String cedula, String apellido, String celular) throws DatoInvalidoException {
+        if (cedula.equals("") || apellido.equals("")) {
+            throw new DatoInvalidoException("Debe completar la cedula y el apellido");
+        }
+        if (this.sistema.existeFamilia(cedula)) {
+            throw new DatoInvalidoException("Ya existe una familia con esa cedula");
+        }
+        Familia familia = new Familia(cedula, apellido, celular);
+        this.sistema.agregarFamilia(familia);
+    }
+
+    public void altaEmpresa(String nombre, String rut, String direccion) throws DatoInvalidoException {
+        if (nombre.equals("") || rut.equals("") || direccion.equals("")) {
+            throw new DatoInvalidoException("Debe completar todos los campos");
+        }
+        if (this.sistema.existeEmpresa(rut)) {
+            throw new DatoInvalidoException("Ya existe una empresa con ese RUT");
+        }
+        Empresa empresa = new Empresa(nombre, rut, direccion);
+        this.sistema.agregarEmpresa(empresa);
+    }
+
+    public ArrayList<Animal> getAnimales() {
+        return this.sistema.getAnimales();
+    }
+
+    public int cantidadAnimales() {
+        return this.sistema.getAnimales().size();
+    }
+
+    public int cantidadAnimalesConEstado(String estado) {
+        return this.sistema.cantidadAnimalesConEstado(estado);
+    }
+
+    public int cantidadEmpresas() {
+        return this.sistema.getEmpresas().size();
+    }
+}
