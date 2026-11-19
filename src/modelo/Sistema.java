@@ -114,12 +114,17 @@ public class Sistema implements Serializable {
         }
         return noEntregados;
     }
-    
+
     public void cambiarEstado(Animal animal) {
         if (animal.getEstado().equals("Disponible para adoptar")) {
             animal.setEstado("No disponible para adoptar");
         } else {
             animal.setEstado("Disponible para adoptar");
         }
+    }
+
+    public void anularAdopcion(Adopcion adopcion) {
+        adopcion.getAnimal().setEstado("No disponible para adoptar");
+        this.adopciones.remove(adopcion);
     }
 }

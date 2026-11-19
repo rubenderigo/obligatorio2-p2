@@ -10,6 +10,7 @@ import modelo.DatoInvalidoException;
 import modelo.Sistema;
 import modelo.Familia;
 import modelo.Empresa;
+import modelo.Adopcion;
 
 /**
  *
@@ -121,5 +122,16 @@ public class Controlador {
             throw new DatoInvalidoException("Debe seleccionar un animal");
         }
         this.sistema.cambiarEstado(animal);
+    }
+
+    public ArrayList<Adopcion> getAdopciones() {
+        return this.sistema.getAdopciones();
+    }
+
+    public void anularAdopcion(Adopcion adopcion) throws DatoInvalidoException {
+        if (adopcion == null) {
+            throw new DatoInvalidoException("Debe seleccionar una adopcion");
+        }
+        this.sistema.anularAdopcion(adopcion);
     }
 }
