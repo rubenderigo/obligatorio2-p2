@@ -111,4 +111,15 @@ public class Controlador {
         }
         this.sistema.realizarAdopcion(animal, familia, comentarios);
     }
+
+    public ArrayList<Animal> getAnimalesNoEntregados() {
+        return this.sistema.getAnimalesNoEntregados();
+    }
+
+    public void cambiarEstado(Animal animal) throws DatoInvalidoException {
+        if (animal == null) {
+            throw new DatoInvalidoException("Debe seleccionar un animal");
+        }
+        this.sistema.cambiarEstado(animal);
+    }
 }

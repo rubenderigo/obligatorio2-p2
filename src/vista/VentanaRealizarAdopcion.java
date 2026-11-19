@@ -94,6 +94,7 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        lstAnimales.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstAnimales.addListSelectionListener(this::lstAnimalesValueChanged);
         jScrollPane1.setViewportView(lstAnimales);
 
@@ -106,6 +107,7 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        lstFamilias.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(lstFamilias);
 
         jLabel2.setText("Familias");
@@ -125,10 +127,10 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPeso)
-                    .addComponent(lblTemperamento))
-                .addGap(75, 75, 75)
+                    .addComponent(lblTemperamento)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNumero)
                     .addGroup(layout.createSequentialGroup()
@@ -136,7 +138,7 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(66, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

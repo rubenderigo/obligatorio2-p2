@@ -10,7 +10,7 @@ import modelo.Animal;
 
 /**
  *
- * @author rmder
+ * @author Ruben Derigo - 287176
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
@@ -150,6 +150,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuMovimientos.add(menuRealizarAdopcion);
 
         menuCambiarEstado.setText("Cambiar de estado");
+        menuCambiarEstado.addActionListener(this::menuCambiarEstadoActionPerformed);
         menuMovimientos.add(menuCambiarEstado);
 
         menuAnularAdopcion.setText("Anular adopcion");
@@ -192,7 +193,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblStock4)
                     .addComponent(lblStock1)
@@ -204,9 +205,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addComponent(lblEntregados)
                     .addComponent(lblDisponibles)
                     .addComponent(lblTotal))
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,6 +260,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaAltaAnimal ventana = new VentanaAltaAnimal(this.controlador, this);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuAnimalesActionPerformed
+
+    private void menuCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCambiarEstadoActionPerformed
+        VentanaCambiarEstado ventana = new VentanaCambiarEstado(this.controlador, this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_menuCambiarEstadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

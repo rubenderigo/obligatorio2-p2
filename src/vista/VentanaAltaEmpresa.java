@@ -10,7 +10,7 @@ import modelo.DatoInvalidoException;
 
 /**
  *
- * @author rmder
+ * @author Ruben Derigo - 287176
  */
 public class VentanaAltaEmpresa extends javax.swing.JFrame {
 

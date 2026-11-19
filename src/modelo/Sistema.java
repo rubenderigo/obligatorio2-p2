@@ -105,4 +105,21 @@ public class Sistema implements Serializable {
         animal.setEstado("Entregado a familia");
     }
 
+    public ArrayList<Animal> getAnimalesNoEntregados() {
+        ArrayList<Animal> noEntregados = new ArrayList<>();
+        for (int i = 0; i < this.animales.size(); i++) {
+            if (!this.animales.get(i).getEstado().equals("Entregado a familia")) {
+                noEntregados.add(this.animales.get(i));
+            }
+        }
+        return noEntregados;
+    }
+    
+    public void cambiarEstado(Animal animal) {
+        if (animal.getEstado().equals("Disponible para adoptar")) {
+            animal.setEstado("No disponible para adoptar");
+        } else {
+            animal.setEstado("Disponible para adoptar");
+        }
+    }
 }
