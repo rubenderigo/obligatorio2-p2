@@ -17,7 +17,9 @@ public class Sistema implements Serializable {
     private ArrayList<Familia> familias = new ArrayList<>();
     private ArrayList<Empresa> empresas = new ArrayList<>();
     private ArrayList<Adopcion> adopciones = new ArrayList<>();
+    private ArrayList<Donacion> donaciones = new ArrayList<>();
     private int proximoNumeroAdopcion = 1;
+    private int proximoNumeroDonacion = 1;
 
     public ArrayList<Animal> getAnimales() {
         return this.animales;
@@ -126,5 +128,29 @@ public class Sistema implements Serializable {
     public void anularAdopcion(Adopcion adopcion) {
         adopcion.getAnimal().setEstado("No disponible para adoptar");
         this.adopciones.remove(adopcion);
+    }
+
+    public ArrayList<Donacion> getDonaciones() {
+        return this.donaciones;
+    }
+
+    public int getProximoNumeroDonacion() {
+        return this.proximoNumeroDonacion;
+    }
+
+    public void registrarDonacion(Empresa empresa, int tipo, int kilos) {
+        Donacion donacion = new Donacion(this.proximoNumeroDonacion, empresa, tipo, kilos);
+        this.donaciones.add(donacion);
+        this.proximoNumeroDonacion++;
+    }
+
+    public int stockAlimento(int tipo) {
+        int total = 0;
+        for (int i = 0; i < this.donaciones.size(); i++) {
+            if (this.donaciones.get(i).getTipo() == tipo) {
+                total = total + this.donaciones.get(i).getKilos();
+            }
+        }
+        return total;
     }
 }

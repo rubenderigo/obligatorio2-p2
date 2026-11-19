@@ -39,6 +39,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.lblEntregados.setText("Entregados a familias: " + this.controlador.cantidadAnimalesConEstado("Entregado a familia"));
         this.lblEmpresas.setText("Empresas registradas: " + this.controlador.cantidadEmpresas());
         this.lblAdopciones.setText("Adopciones registradas: " + this.controlador.cantidadAdopciones());
+        this.lblStock1.setText("Stock perros grandes: " + this.controlador.stockAlimento(1) + " kg");
+        this.lblStock2.setText("Stock perros chicos: " + this.controlador.stockAlimento(2) + " kg");
+        this.lblStock3.setText("Stock perros adultos: " + this.controlador.stockAlimento(3) + " kg");
+        this.lblStock4.setText("Stock otra: " + this.controlador.stockAlimento(4) + " kg");
 
         ArrayList<Animal> animales = this.controlador.getAnimales();
         String[] lineas = new String[animales.size()];
@@ -158,6 +162,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuMovimientos.add(menuAnularAdopcion);
 
         menuRegistrarDonacion.setText("Registrar donación");
+        menuRegistrarDonacion.addActionListener(this::menuRegistrarDonacionActionPerformed);
         menuMovimientos.add(menuRegistrarDonacion);
 
         menuImportarDonaciones.setText("Importar donaciones");
@@ -271,6 +276,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaAnularAdopcion ventana = new VentanaAnularAdopcion(this.controlador, this);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuAnularAdopcionActionPerformed
+
+    private void menuRegistrarDonacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegistrarDonacionActionPerformed
+        VentanaRegistrarDonacion ventana = new VentanaRegistrarDonacion(this.controlador, this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_menuRegistrarDonacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -134,4 +134,35 @@ public class Controlador {
         }
         this.sistema.anularAdopcion(adopcion);
     }
+
+    public ArrayList<Empresa> getEmpresas() {
+        return this.sistema.getEmpresas();
+    }
+
+    public int getProximoNumeroDonacion() {
+        return this.sistema.getProximoNumeroDonacion();
+    }
+
+    public int stockAlimento(int tipo) {
+        return this.sistema.stockAlimento(tipo);
+    }
+
+    public void registrarDonacion(Empresa empresa, int tipo, String textoKilos) throws DatoInvalidoException {
+        if (empresa == null) {
+            throw new DatoInvalidoException("Debe seleccionar una empresa");
+        }
+        if (textoKilos.equals("")) {
+            throw new DatoInvalidoException("Debe ingresar la cantidad de kilos");
+        }
+        int kilos;
+        try {
+            kilos = Integer.parseInt(textoKilos);
+        } catch (NumberFormatException e) {
+            throw new DatoInvalidoException("Los kilos deben ser un numero entero");
+        }
+        if (kilos <= 0) {
+            throw new DatoInvalidoException("Los kilos deben ser mayor a cero");
+        }
+        this.sistema.registrarDonacion(empresa, tipo, kilos);
+    }
 }
