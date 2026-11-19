@@ -31,13 +31,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.actualizar();
     }
-    
+
     public void actualizar() {
         this.lblTotal.setText("Total de animales: " + this.controlador.cantidadAnimales());
         this.lblDisponibles.setText("Disponibles para adoptar: " + this.controlador.cantidadAnimalesConEstado("Disponible para adoptar"));
         this.lblNoDisponibles.setText("No disponibles: " + this.controlador.cantidadAnimalesConEstado("No disponible para adoptar"));
         this.lblEntregados.setText("Entregados a familias: " + this.controlador.cantidadAnimalesConEstado("Entregado a familia"));
         this.lblEmpresas.setText("Empresas registradas: " + this.controlador.cantidadEmpresas());
+        this.lblAdopciones.setText("Adopciones registradas: " + this.controlador.cantidadAdopciones());
 
         ArrayList<Animal> animales = this.controlador.getAnimales();
         String[] lineas = new String[animales.size()];
@@ -250,7 +251,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuEmpresasActionPerformed
 
     private void menuRealizarAdopcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRealizarAdopcionActionPerformed
-        // TODO add your handling code here:
+        VentanaRealizarAdopcion ventana = new VentanaRealizarAdopcion(this.controlador, this);
+        ventana.setVisible(true);
     }//GEN-LAST:event_menuRealizarAdopcionActionPerformed
 
     private void menuAnimalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAnimalesActionPerformed

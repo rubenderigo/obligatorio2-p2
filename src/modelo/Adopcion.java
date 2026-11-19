@@ -4,10 +4,40 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author rmder
  */
-public class Adopcion {
-    
+public class Adopcion implements Serializable {
+
+    private int numero;
+    private Animal animal;
+    private Familia familia;
+    private String comentarios;
+
+    public Adopcion(int numero, Animal animal, Familia familia, String comentarios) {
+        this.numero = numero;
+        this.animal = animal;
+        this.familia = familia;
+        this.comentarios = comentarios;
+    }
+
+    public int getNumero() {
+        return this.numero;
+    }
+
+    public Animal getAnimal() {
+        return this.animal;
+    }
+
+    public Familia getFamilia() {
+        return this.familia;
+    }
+
+    public String getComentarios() {
+        return this.comentarios;
+    }
+
 }

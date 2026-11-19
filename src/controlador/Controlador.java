@@ -85,4 +85,30 @@ public class Controlador {
     public int cantidadEmpresas() {
         return this.sistema.getEmpresas().size();
     }
+
+    public ArrayList<Animal> getAnimalesDisponibles() {
+        return this.sistema.getAnimalesDisponibles();
+    }
+
+    public ArrayList<Familia> getFamilias() {
+        return this.sistema.getFamilias();
+    }
+
+    public int getProximoNumeroAdopcion() {
+        return this.sistema.getProximoNumeroAdopcion();
+    }
+
+    public int cantidadAdopciones() {
+        return this.sistema.getAdopciones().size();
+    }
+
+    public void realizarAdopcion(Animal animal, Familia familia, String comentarios) throws DatoInvalidoException {
+        if (animal == null) {
+            throw new DatoInvalidoException("Debe seleccionar un animal");
+        }
+        if (familia == null) {
+            throw new DatoInvalidoException("Debe seleccionar una familia");
+        }
+        this.sistema.realizarAdopcion(animal, familia, comentarios);
+    }
 }

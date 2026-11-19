@@ -16,6 +16,8 @@ public class Sistema implements Serializable {
     private ArrayList<Animal> animales = new ArrayList<>();
     private ArrayList<Familia> familias = new ArrayList<>();
     private ArrayList<Empresa> empresas = new ArrayList<>();
+    private ArrayList<Adopcion> adopciones = new ArrayList<>();
+    private int proximoNumeroAdopcion = 1;
 
     public ArrayList<Animal> getAnimales() {
         return this.animales;
@@ -27,6 +29,10 @@ public class Sistema implements Serializable {
 
     public ArrayList<Empresa> getEmpresas() {
         return empresas;
+    }
+
+    public ArrayList<Adopcion> getAdopciones() {
+        return this.adopciones;
     }
 
     public boolean existeAnimal(String codigo) {
@@ -76,6 +82,27 @@ public class Sistema implements Serializable {
             }
         }
         return cantidad;
+    }
+
+    public int getProximoNumeroAdopcion() {
+        return this.proximoNumeroAdopcion;
+    }
+
+    public ArrayList<Animal> getAnimalesDisponibles() {
+        ArrayList<Animal> disponibles = new ArrayList<>();
+        for (int i = 0; i < this.animales.size(); i++) {
+            if (this.animales.get(i).getEstado().equals("Disponible para adoptar")) {
+                disponibles.add(this.animales.get(i));
+            }
+        }
+        return disponibles;
+    }
+
+    public void realizarAdopcion(Animal animal, Familia familia, String comentarios) {
+        Adopcion adopcion = new Adopcion(this.proximoNumeroAdopcion, animal, familia, comentarios);
+        this.adopciones.add(adopcion);
+        this.proximoNumeroAdopcion++;
+        animal.setEstado("Entregado a familia");
     }
 
 }
