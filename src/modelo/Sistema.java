@@ -153,4 +153,87 @@ public class Sistema implements Serializable {
         }
         return total;
     }
+    
+    public Empresa buscarEmpresa(String rut) {
+        for (int i = 0; i < this.empresas.size(); i++) {
+            if (this.empresas.get(i).getRut().equals(rut)) {
+                return this.empresas.get(i);
+            }
+        }
+        return null;
+    }
+    
+    private String procesarLineaDonacion(String linea) {
+        String[] partes = linea.split("#");
+        if (partes.length != 3) {
+            return "formato incorrecto";
+        }
+
+        String error = "";
+
+        Empresa empresa = this.buscarEmpresa(partes[0].trim());
+        if (empresa == null) {
+            error = error + "empresa no registrada ";
+        }
+
+        int tipo = 0;
+        try {
+            tipo = Integer.parseInt(partes[1].trim());
+            if (tipo < 1 || tipo > 4) {
+                error = error + "tipo incorrecto ";
+            }
+        } catch (NumberFormatException e) {
+            error = error + "tipo incorrecto ";
+        }
+
+        int kilos = 0;
+        try {
+            kilos = Integer.parseInt(partes[2].trim());
+            if (kilos <= 0) {
+                error = error + "cantidad incorrecta ";
+            }
+        } catch (NumberFormatException e) {
+            error = error + "cantidad incorrecta ";
+        }
+
+        if (error.equals("")) {
+            this.registrarDonacion(empresa, tipo, kilos);
+        }
+        return error.trim();
+    }
+
+    public int importarDonaciones(String ruta) {
+        ArrayList<String> errores = new ArrayList<>();
+        ArchivoLectura archivo = new ArchivoLectura(ruta);
+        int numeroLinea = 0;
+
+        while (archivo.hayMasLineas()) {
+            numeroLinea++;
+            String error = this.procesarLineaDonacion(archivo.linea());
+            if (!error.equals("")) {
+                errores.add("Linea " + numeroLinea + ": " + error);
+            }
+        }
+        archivo.cerrar();
+
+        if (!errores.isEmpty()) {
+            this.grabarErrores(ruta, errores);
+        }
+        return errores.size();
+    }
+
+    private void grabarErrores(String ruta, ArrayList<String> errores) {
+        String rutaError = ruta;
+        int posicionPunto = ruta.lastIndexOf(".");
+        if (posicionPunto >= 0) {
+            rutaError = ruta.substring(0, posicionPunto);
+        }
+        rutaError = rutaError + "Error.txt";
+
+        ArchivoGrabacion archivo = new ArchivoGrabacion(rutaError);
+        for (int i = 0; i < errores.size(); i++) {
+            archivo.grabarLinea(errores.get(i));
+        }
+        archivo.cerrar();
+    }
 }

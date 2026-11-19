@@ -166,6 +166,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuMovimientos.add(menuRegistrarDonacion);
 
         menuImportarDonaciones.setText("Importar donaciones");
+        menuImportarDonaciones.addActionListener(this::menuImportarDonacionesActionPerformed);
         menuMovimientos.add(menuImportarDonaciones);
 
         jMenuBar1.add(menuMovimientos);
@@ -281,6 +282,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaRegistrarDonacion ventana = new VentanaRegistrarDonacion(this.controlador, this);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuRegistrarDonacionActionPerformed
+
+    private void menuImportarDonacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuImportarDonacionesActionPerformed
+        VentanaImportarDonaciones ventana = new VentanaImportarDonaciones(this.controlador, this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_menuImportarDonacionesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

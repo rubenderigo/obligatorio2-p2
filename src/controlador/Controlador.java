@@ -165,4 +165,8 @@ public class Controlador {
         }
         this.sistema.registrarDonacion(empresa, tipo, kilos);
     }
+    
+     public int importarDonaciones(String ruta) {
+        return this.sistema.importarDonaciones(ruta);
+    }
 }
