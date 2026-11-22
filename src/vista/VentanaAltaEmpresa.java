@@ -25,7 +25,7 @@ public class VentanaAltaEmpresa extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaAltaEmpresa(Controlador controladorl) {
+    public VentanaAltaEmpresa(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
         setLocationRelativeTo(null);
