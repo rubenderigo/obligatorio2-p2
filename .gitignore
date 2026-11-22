@@ -1,1 +1,16 @@
-/dist/
+# Compilación (Ant / NetBeans)
+build/
+dist/
+
+# NetBeans: configuración local de cada máquina
+nbproject/private/
+
+# Compilados
+*.class
+
+# Logs de la JVM
+hs_err_pid*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
