@@ -110,6 +110,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Generacion de pagina"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuGenerarPaginaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuRecuperar">
               <Properties>

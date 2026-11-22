@@ -258,4 +258,31 @@ public class Sistema implements Serializable {
         lista.sort((a, b) -> this.cantidadAdopcionesDeFamilia(b) - this.cantidadAdopcionesDeFamilia(a));
         return lista;
     }
+    
+    public void generarPagina(String ruta) {
+        ArchivoGrabacion archivo = new ArchivoGrabacion(ruta);
+        archivo.grabarLinea("<html>");
+        archivo.grabarLinea("<head><title>Adopciones</title></head>");
+        archivo.grabarLinea("<body>");
+        archivo.grabarLinea("<h1>Adopciones del refugio</h1>");
+
+        if (this.adopciones.isEmpty()) {
+            archivo.grabarLinea("<p>No hay adopciones registradas</p>");
+        } else {
+            archivo.grabarLinea("<p>Cantidad total de adopciones: " + this.adopciones.size() + "</p>");
+            archivo.grabarLinea("<table border='1'>");
+            archivo.grabarLinea("<tr><th>Numero</th><th>Codigo</th><th>Animal</th><th>Familia</th><th>Comentarios</th></tr>");
+            for (int i = 0; i < this.adopciones.size(); i++) {
+                Adopcion adopcion = this.adopciones.get(i);
+                archivo.grabarLinea("<tr><td>" + adopcion.getNumero() + "</td><td>" + adopcion.getAnimal().getCodigo()
+                        + "</td><td>" + adopcion.getAnimal().getNombre() + "</td><td>" + adopcion.getFamilia().getApellido()
+                        + "</td><td>" + adopcion.getComentarios() + "</td></tr>");
+            }
+            archivo.grabarLinea("</table>");
+        }
+
+        archivo.grabarLinea("</body>");
+        archivo.grabarLinea("</html>");
+        archivo.cerrar();
+    }
 }

@@ -4,6 +4,7 @@
  */
 package controlador;
 
+import java.io.File;
 import java.util.ArrayList;
 import modelo.Animal;
 import modelo.DatoInvalidoException;
@@ -185,5 +186,27 @@ public class Controlador {
 
     public ArrayList<Donacion> getDonaciones() {
         return this.sistema.getDonaciones();
+    }
+    
+    public String generarPagina(String nombre, String ubicacion) throws DatoInvalidoException {
+        if (nombre.equals("")) {
+            throw new DatoInvalidoException("Debe ingresar el nombre del archivo");
+        }
+        if (!nombre.endsWith(".html")) {
+            nombre = nombre + ".html";
+        }
+
+        String ruta = nombre;
+        if (!ubicacion.equals("")) {
+            File carpeta = new File(ubicacion);
+            if (!carpeta.isDirectory()) {
+                throw new DatoInvalidoException("La ubicacion no existe");
+            }
+            ruta = ubicacion + "/" + nombre;
+        }
+
+        this.sistema.generarPagina(ruta);
+        File archivo = new File(ruta);
+        return archivo.getAbsolutePath();
     }
 }
