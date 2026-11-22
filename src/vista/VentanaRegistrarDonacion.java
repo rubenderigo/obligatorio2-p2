@@ -34,6 +34,7 @@ public class VentanaRegistrarDonacion extends javax.swing.JFrame implements Obse
         this.controlador = controlador;
         this.setLocationRelativeTo(null);
         this.cargarDatos();
+        this.controlador.registrarObservador(this);
     }
 
     public void cargarDatos() {

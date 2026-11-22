@@ -179,7 +179,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Observador {
         menuAnularAdopcion.addActionListener(this::menuAnularAdopcionActionPerformed);
         menuMovimientos.add(menuAnularAdopcion);
 
-        menuRegistrarDonacion.setText("Registrar donación");
+        menuRegistrarDonacion.setText("Registrar donacion");
         menuRegistrarDonacion.addActionListener(this::menuRegistrarDonacionActionPerformed);
         menuMovimientos.add(menuRegistrarDonacion);
 

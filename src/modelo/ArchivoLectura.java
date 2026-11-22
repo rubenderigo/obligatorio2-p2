@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author ORT
+ * @author ORT - Ruben Derigo - 287176
  */
 public class ArchivoLectura {
 

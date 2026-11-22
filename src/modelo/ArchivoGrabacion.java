@@ -9,7 +9,7 @@ import java.util.Formatter;
 
 /**
  *
- * @author ORT
+ * @author ORT - Ruben Derigo - 287176
  */
 public class ArchivoGrabacion {
 
