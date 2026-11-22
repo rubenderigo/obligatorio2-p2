@@ -153,7 +153,7 @@ public class Sistema implements Serializable {
         }
         return total;
     }
-    
+
     public Empresa buscarEmpresa(String rut) {
         for (int i = 0; i < this.empresas.size(); i++) {
             if (this.empresas.get(i).getRut().equals(rut)) {
@@ -162,7 +162,7 @@ public class Sistema implements Serializable {
         }
         return null;
     }
-    
+
     private String procesarLineaDonacion(String linea) {
         String[] partes = linea.split("#");
         if (partes.length != 3) {
@@ -235,5 +235,27 @@ public class Sistema implements Serializable {
             archivo.grabarLinea(errores.get(i));
         }
         archivo.cerrar();
+    }
+
+    public int cantidadAdopcionesDeFamilia(Familia familia) {
+        int cantidad = 0;
+        for (int i = 0; i < this.adopciones.size(); i++) {
+            if (this.adopciones.get(i).getFamilia() == familia) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
+    public ArrayList<Familia> getFamiliasOrdenadasPorApellido() {
+        ArrayList<Familia> lista = new ArrayList<>(this.familias);
+        lista.sort((a, b) -> a.getApellido().compareToIgnoreCase(b.getApellido()));
+        return lista;
+    }
+
+    public ArrayList<Familia> getFamiliasOrdenadasPorAdopciones() {
+        ArrayList<Familia> lista = new ArrayList<>(this.familias);
+        lista.sort((a, b) -> this.cantidadAdopcionesDeFamilia(b) - this.cantidadAdopcionesDeFamilia(a));
+        return lista;
     }
 }

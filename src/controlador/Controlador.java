@@ -165,8 +165,20 @@ public class Controlador {
         }
         this.sistema.registrarDonacion(empresa, tipo, kilos);
     }
-    
-     public int importarDonaciones(String ruta) {
+
+    public int importarDonaciones(String ruta) {
         return this.sistema.importarDonaciones(ruta);
+    }
+
+    public ArrayList<Familia> getFamiliasOrdenadasPorApellido() {
+        return this.sistema.getFamiliasOrdenadasPorApellido();
+    }
+
+    public ArrayList<Familia> getFamiliasOrdenadasPorAdopciones() {
+        return this.sistema.getFamiliasOrdenadasPorAdopciones();
+    }
+
+    public int cantidadAdopcionesDeFamilia(Familia familia) {
+        return this.sistema.cantidadAdopcionesDeFamilia(familia);
     }
 }
