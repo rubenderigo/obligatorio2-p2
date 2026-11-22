@@ -17,7 +17,6 @@ public class VentanaAltaEmpresa extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaAltaEmpresa.class.getName());
 
     private Controlador controlador;
-    private VentanaPrincipal principal;
 
     /**
      * Creates new form VentanaAltaEmpresa
@@ -26,10 +25,9 @@ public class VentanaAltaEmpresa extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaAltaEmpresa(Controlador controlador, VentanaPrincipal principal) {
+    public VentanaAltaEmpresa(Controlador controladorl) {
         initComponents();
         this.controlador = controlador;
-        this.principal = principal;
         setLocationRelativeTo(null);
     }
 
@@ -123,7 +121,6 @@ public class VentanaAltaEmpresa extends javax.swing.JFrame {
         try {
             this.controlador.altaEmpresa(txtNombre.getText().trim(), txtRut.getText().trim(), txtDireccion.getText().trim());
             JOptionPane.showMessageDialog(this, "Empresa agregada");
-            this.principal.actualizar();
             this.txtNombre.setText("");
             this.txtRut.setText("");
             this.txtDireccion.setText("");
@@ -131,7 +128,7 @@ public class VentanaAltaEmpresa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
- 
+
     private void txtRutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRutActionPerformed

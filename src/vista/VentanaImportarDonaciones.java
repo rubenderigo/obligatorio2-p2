@@ -17,7 +17,6 @@ public class VentanaImportarDonaciones extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaImportarDonaciones.class.getName());
 
     private Controlador controlador;
-    private VentanaPrincipal principal;
 
     /**
      * Creates new form VentanaImportarDonaciones
@@ -26,10 +25,9 @@ public class VentanaImportarDonaciones extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaImportarDonaciones(Controlador controlador, VentanaPrincipal principal) {
+    public VentanaImportarDonaciones(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
-        this.principal = principal;
         this.setLocationRelativeTo(null);
     }
 
@@ -79,7 +77,6 @@ public class VentanaImportarDonaciones extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Importacion finalizada con " + cantidadErrores
                         + " lineas con error. Se genero el archivo de errores en la misma carpeta.");
             }
-            this.principal.actualizar();
             this.dispose();
         } else {
             this.dispose();

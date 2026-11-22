@@ -17,7 +17,6 @@ public class VentanaAltaFamilia extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaAltaFamilia.class.getName());
 
     private Controlador controlador;
-    private VentanaPrincipal principal;
 
     /**
      * Creates new form VentanaAltaFamilia
@@ -26,10 +25,9 @@ public class VentanaAltaFamilia extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaAltaFamilia(Controlador controlador, VentanaPrincipal principal) {
+    public VentanaAltaFamilia(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
-        this.principal = principal;
         setLocationRelativeTo(null);
     }
 
@@ -113,9 +111,8 @@ public class VentanaAltaFamilia extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
-            this.controlador.altaFamilia(txtCedula.getText().trim(), txtApellido.getText().trim(), txtCelular.getText().trim());
+            this.controlador.altaFamilia(this.txtCedula.getText().trim(), this.txtApellido.getText().trim(), this.txtCelular.getText().trim());
             JOptionPane.showMessageDialog(this, "Familia agregada");
-            this.principal.actualizar();
             this.txtCedula.setText("");
             this.txtApellido.setText("");
             this.txtCelular.setText("");

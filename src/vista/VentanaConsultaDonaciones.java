@@ -5,15 +5,16 @@
 package vista;
 
 import controlador.Controlador;
+import controlador.Observador;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelo.Donacion;
 
 /**
  *
- * @author rmder
+ * @author Ruben Derigo - 287176
  */
-public class VentanaConsultaDonaciones extends javax.swing.JFrame {
+public class VentanaConsultaDonaciones extends javax.swing.JFrame implements Observador {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaConsultaDonaciones.class.getName());
 
@@ -31,8 +32,9 @@ public class VentanaConsultaDonaciones extends javax.swing.JFrame {
         this.controlador = controlador;
         this.setLocationRelativeTo(null);
         this.cargarDatos();
+        this.controlador.registrarObservador(this);
     }
-    
+
     public void cargarDatos() {
         ArrayList<Donacion> donaciones = this.controlador.getDonaciones();
         String[] columnas = {"Numero", "Empresa", "Tipo", "Kilos"};
@@ -49,6 +51,11 @@ public class VentanaConsultaDonaciones extends javax.swing.JFrame {
         this.tblDonaciones.setModel(new DefaultTableModel(datos, columnas));
     }
 
+    @Override
+    public void actualizar() {
+        this.cargarDatos();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +70,11 @@ public class VentanaConsultaDonaciones extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta de donaciones");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         tblDonaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,6 +108,10 @@ public class VentanaConsultaDonaciones extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.controlador.quitarObservador(this);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

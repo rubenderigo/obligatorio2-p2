@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Adopcion;
 import modelo.DatoInvalidoException;
+import controlador.Observador;
 
 /**
  *
- * @author rmder
+ * @author Ruben Derigo - 287176
  */
-public class VentanaAnularAdopcion extends javax.swing.JFrame {
+public class VentanaAnularAdopcion extends javax.swing.JFrame implements Observador {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaAnularAdopcion.class.getName());
 
     private Controlador controlador;
-    private VentanaPrincipal principal;
     private ArrayList<Adopcion> adopciones;
 
     /**
@@ -29,12 +29,12 @@ public class VentanaAnularAdopcion extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaAnularAdopcion(Controlador controlador, VentanaPrincipal principal) {
+    public VentanaAnularAdopcion(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
-        this.principal = principal;
         this.setLocationRelativeTo(null);
         this.cargarDatos();
+        this.controlador.registrarObservador(this);
     }
 
     public void cargarDatos() {
@@ -46,6 +46,10 @@ public class VentanaAnularAdopcion extends javax.swing.JFrame {
                     + " - Familia " + adopcion.getFamilia().getApellido();
         }
         this.lstAdopciones.setListData(lineas);
+    }
+
+    public void actualizar() {
+        this.cargarDatos();
     }
 
     /**
@@ -64,6 +68,11 @@ public class VentanaAnularAdopcion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Anular adopcion");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Adopciones");
 
@@ -120,12 +129,14 @@ public class VentanaAnularAdopcion extends javax.swing.JFrame {
         try {
             this.controlador.anularAdopcion(adopcion);
             JOptionPane.showMessageDialog(this, "Adopcion anulada");
-            this.principal.actualizar();
-            this.cargarDatos();
         } catch (DatoInvalidoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnAnularActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.controlador.quitarObservador(this);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

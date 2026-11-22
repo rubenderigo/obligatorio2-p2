@@ -5,6 +5,7 @@
 package vista;
 
 import controlador.Controlador;
+import controlador.Observador;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Animal;
@@ -14,12 +15,11 @@ import modelo.DatoInvalidoException;
  *
  * @author Ruben Derigo - 287176
  */
-public class VentanaCambiarEstado extends javax.swing.JFrame {
+public class VentanaCambiarEstado extends javax.swing.JFrame implements Observador {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaCambiarEstado.class.getName());
 
     private Controlador controlador;
-    private VentanaPrincipal principal;
     private ArrayList<Animal> animales;
 
     /**
@@ -29,12 +29,12 @@ public class VentanaCambiarEstado extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaCambiarEstado(Controlador controlador, VentanaPrincipal principal) {
+    public VentanaCambiarEstado(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
-        this.principal = principal;
         this.setLocationRelativeTo(null);
         this.cargarDatos();
+        this.controlador.registrarObservador(this);
     }
 
     public void cargarDatos() {
@@ -54,6 +54,12 @@ public class VentanaCambiarEstado extends javax.swing.JFrame {
         this.lstAnimales.setListData(lineas);
     }
 
+    
+    @Override
+    public void actualizar() {
+        this.cargarDatos();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +76,11 @@ public class VentanaCambiarEstado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cambiar estado");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Animales no entregados");
 
@@ -126,12 +137,14 @@ public class VentanaCambiarEstado extends javax.swing.JFrame {
         try {
             this.controlador.cambiarEstado(animal);
             JOptionPane.showMessageDialog(this, "Estado cambiado");
-            this.principal.actualizar();
-            this.cargarDatos();
         } catch (DatoInvalidoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnCambiarEstadoActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.controlador.quitarObservador(this);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

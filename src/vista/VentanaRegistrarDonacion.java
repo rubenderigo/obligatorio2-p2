@@ -5,6 +5,7 @@
 package vista;
 
 import controlador.Controlador;
+import controlador.Observador;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.DatoInvalidoException;
@@ -14,12 +15,11 @@ import modelo.Empresa;
  *
  * @author Ruben Derigo - 287176
  */
-public class VentanaRegistrarDonacion extends javax.swing.JFrame {
+public class VentanaRegistrarDonacion extends javax.swing.JFrame implements Observador {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaRegistrarDonacion.class.getName());
 
     private Controlador controlador;
-    private VentanaPrincipal principal;
     private ArrayList<Empresa> empresas;
 
     /**
@@ -29,10 +29,9 @@ public class VentanaRegistrarDonacion extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaRegistrarDonacion(Controlador controlador, VentanaPrincipal principal) {
+    public VentanaRegistrarDonacion(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
-        this.principal = principal;
         this.setLocationRelativeTo(null);
         this.cargarDatos();
     }
@@ -48,6 +47,11 @@ public class VentanaRegistrarDonacion extends javax.swing.JFrame {
 
         this.lblNumero.setText("Donacion numero: " + this.controlador.getProximoNumeroDonacion());
         this.txtKilos.setText("");
+    }
+
+    @Override
+    public void actualizar() {
+        this.cargarDatos();
     }
 
     /**
@@ -71,6 +75,11 @@ public class VentanaRegistrarDonacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar donacion");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Empresas");
 
@@ -161,12 +170,14 @@ public class VentanaRegistrarDonacion extends javax.swing.JFrame {
             int numero = this.controlador.getProximoNumeroDonacion();
             this.controlador.registrarDonacion(empresa, tipo, this.txtKilos.getText().trim());
             JOptionPane.showMessageDialog(this, "Donacion numero " + numero + " registrada");
-            this.principal.actualizar();
-            this.cargarDatos();
         } catch (DatoInvalidoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.controlador.quitarObservador(this);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

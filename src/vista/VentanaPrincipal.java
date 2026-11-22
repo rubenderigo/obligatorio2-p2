@@ -5,16 +5,17 @@
 package vista;
 
 import controlador.Controlador;
-import java.util.ArrayList;
-import modelo.Animal;
+import controlador.Observador;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import modelo.Animal;
 
 /**
  *
  * @author Ruben Derigo - 287176
  */
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame implements Observador {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
 
@@ -32,6 +33,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.controlador = controlador;
         this.setLocationRelativeTo(null);
         this.actualizar();
+        this.controlador.registrarObservador(this);
     }
 
     public void actualizar() {
@@ -272,42 +274,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuFamiliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFamiliasActionPerformed
-        VentanaAltaFamilia ventana = new VentanaAltaFamilia(this.controlador, this);
+        VentanaAltaFamilia ventana = new VentanaAltaFamilia(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuFamiliasActionPerformed
 
     private void menuEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmpresasActionPerformed
-        VentanaAltaEmpresa ventana = new VentanaAltaEmpresa(this.controlador, this);
+        VentanaAltaEmpresa ventana = new VentanaAltaEmpresa(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuEmpresasActionPerformed
 
     private void menuRealizarAdopcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRealizarAdopcionActionPerformed
-        VentanaRealizarAdopcion ventana = new VentanaRealizarAdopcion(this.controlador, this);
+        VentanaRealizarAdopcion ventana = new VentanaRealizarAdopcion(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuRealizarAdopcionActionPerformed
 
     private void menuAnimalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAnimalesActionPerformed
-        VentanaAltaAnimal ventana = new VentanaAltaAnimal(this.controlador, this);
+        VentanaAltaAnimal ventana = new VentanaAltaAnimal(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuAnimalesActionPerformed
 
     private void menuCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCambiarEstadoActionPerformed
-        VentanaCambiarEstado ventana = new VentanaCambiarEstado(this.controlador, this);
+        VentanaCambiarEstado ventana = new VentanaCambiarEstado(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuCambiarEstadoActionPerformed
 
     private void menuAnularAdopcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAnularAdopcionActionPerformed
-        VentanaAnularAdopcion ventana = new VentanaAnularAdopcion(this.controlador, this);
+        VentanaAnularAdopcion ventana = new VentanaAnularAdopcion(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuAnularAdopcionActionPerformed
 
     private void menuRegistrarDonacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRegistrarDonacionActionPerformed
-        VentanaRegistrarDonacion ventana = new VentanaRegistrarDonacion(this.controlador, this);
+        VentanaRegistrarDonacion ventana = new VentanaRegistrarDonacion(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuRegistrarDonacionActionPerformed
 
     private void menuImportarDonacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuImportarDonacionesActionPerformed
-        VentanaImportarDonaciones ventana = new VentanaImportarDonaciones(this.controlador, this);
+        VentanaImportarDonaciones ventana = new VentanaImportarDonaciones(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuImportarDonacionesActionPerformed
 
@@ -344,7 +346,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (respuesta == JOptionPane.YES_OPTION) {
             try {
                 this.controlador.recuperarDatos();
-                this.actualizar();
                 JOptionPane.showMessageDialog(this, "Datos recuperados");
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(this, "No hay datos guardados para recuperar");

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author rmder
+ * @author Ruben Derigo - 287176
  */
 public class Adopcion implements Serializable {
 

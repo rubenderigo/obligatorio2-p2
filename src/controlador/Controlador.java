@@ -26,6 +26,7 @@ import java.io.ObjectOutputStream;
 public class Controlador {
 
     private Sistema sistema = new Sistema();
+    private ArrayList<Observador> observadores = new ArrayList<>();
 
     public void altaAnimal(String codigo, String nombre, String temperamento, String textoPeso, boolean disponible) throws DatoInvalidoException {
         if (codigo.equals("") || nombre.equals("") || temperamento.equals("") || textoPeso.equals("")) {
@@ -54,6 +55,7 @@ public class Controlador {
 
         Animal animal = new Animal(codigo, nombre, temperamento, peso, estado);
         this.sistema.agregarAnimal(animal);
+        this.notificarObservadores();
     }
 
     public void altaFamilia(String cedula, String apellido, String celular) throws DatoInvalidoException {
@@ -65,6 +67,7 @@ public class Controlador {
         }
         Familia familia = new Familia(cedula, apellido, celular);
         this.sistema.agregarFamilia(familia);
+        this.notificarObservadores();
     }
 
     public void altaEmpresa(String nombre, String rut, String direccion) throws DatoInvalidoException {
@@ -76,6 +79,7 @@ public class Controlador {
         }
         Empresa empresa = new Empresa(nombre, rut, direccion);
         this.sistema.agregarEmpresa(empresa);
+        this.notificarObservadores();
     }
 
     public ArrayList<Animal> getAnimales() {
@@ -118,6 +122,7 @@ public class Controlador {
             throw new DatoInvalidoException("Debe seleccionar una familia");
         }
         this.sistema.realizarAdopcion(animal, familia, comentarios);
+        this.notificarObservadores();
     }
 
     public ArrayList<Animal> getAnimalesNoEntregados() {
@@ -129,6 +134,7 @@ public class Controlador {
             throw new DatoInvalidoException("Debe seleccionar un animal");
         }
         this.sistema.cambiarEstado(animal);
+        this.notificarObservadores();
     }
 
     public ArrayList<Adopcion> getAdopciones() {
@@ -140,6 +146,7 @@ public class Controlador {
             throw new DatoInvalidoException("Debe seleccionar una adopcion");
         }
         this.sistema.anularAdopcion(adopcion);
+        this.notificarObservadores();
     }
 
     public ArrayList<Empresa> getEmpresas() {
@@ -171,10 +178,13 @@ public class Controlador {
             throw new DatoInvalidoException("Los kilos deben ser mayor a cero");
         }
         this.sistema.registrarDonacion(empresa, tipo, kilos);
+        this.notificarObservadores();
     }
-
+ 
     public int importarDonaciones(String ruta) {
-        return this.sistema.importarDonaciones(ruta);
+        int cantidadErrores = this.sistema.importarDonaciones(ruta);
+        this.notificarObservadores();
+        return cantidadErrores;
     }
 
     public ArrayList<Familia> getFamiliasOrdenadasPorApellido() {
@@ -227,5 +237,20 @@ public class Controlador {
         ObjectInputStream datos = new ObjectInputStream(archivo);
         this.sistema = (Sistema) datos.readObject();
         datos.close();
+        this.notificarObservadores();
+    }
+    
+    public void registrarObservador(Observador observador) {
+        this.observadores.add(observador);
+    }
+
+    public void quitarObservador(Observador observador) {
+        this.observadores.remove(observador);
+    }
+
+    private void notificarObservadores() {
+        for (int i = 0; i < this.observadores.size(); i++) {
+            this.observadores.get(i).actualizar();
+        }
     }
 }

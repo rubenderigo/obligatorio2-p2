@@ -10,17 +10,17 @@ import javax.swing.JOptionPane;
 import modelo.Animal;
 import modelo.DatoInvalidoException;
 import modelo.Familia;
+import controlador.Observador;
 
 /**
  *
  * @author Ruben Derigo - 287176
  */
-public class VentanaRealizarAdopcion extends javax.swing.JFrame {
+public class VentanaRealizarAdopcion extends javax.swing.JFrame implements Observador {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaRealizarAdopcion.class.getName());
 
     private Controlador controlador;
-    private VentanaPrincipal principal;
     private ArrayList<Animal> animalesDisponibles;
     private ArrayList<Familia> familias;
 
@@ -31,12 +31,12 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaRealizarAdopcion(Controlador controlador, VentanaPrincipal principal) {
+    public VentanaRealizarAdopcion(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
-        this.principal = principal;
         this.setLocationRelativeTo(null);
         this.cargarDatos();
+        this.controlador.registrarObservador(this);
     }
 
     public void cargarDatos() {
@@ -60,6 +60,12 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
         this.lblPeso.setText("Peso:");
         this.lblTemperamento.setText("Temperamento:");
         this.txtComentarios.setText("");
+    }
+    
+    
+    @Override
+    public void actualizar() {
+        this.cargarDatos();
     }
 
     /**
@@ -86,6 +92,11 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar adopcion");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Animales disponibles");
 
@@ -193,8 +204,6 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
             int numero = this.controlador.getProximoNumeroAdopcion();
             this.controlador.realizarAdopcion(animal, familia, this.txtComentarios.getText().trim());
             JOptionPane.showMessageDialog(this, "Adopcion numero " + numero + " realizada");
-            this.principal.actualizar();
-            this.cargarDatos();
         } catch (DatoInvalidoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -208,6 +217,10 @@ public class VentanaRealizarAdopcion extends javax.swing.JFrame {
             this.lblTemperamento.setText("Temperamento: " + animal.getTemperamento());
         }
     }//GEN-LAST:event_lstAnimalesValueChanged
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.controlador.quitarObservador(this);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

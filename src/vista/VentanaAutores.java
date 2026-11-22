@@ -6,7 +6,7 @@ package vista;
 
 /**
  *
- * @author rmder
+ * @author Ruben Derigo - 287176
  */
 public class VentanaAutores extends javax.swing.JFrame {
     

@@ -5,14 +5,15 @@
 package vista;
 
 import controlador.Controlador;
+import controlador.Observador;
 import java.util.ArrayList;
 import modelo.Familia;
 
 /**
  *
- * @author rmder
+ * @author  Ruben Derigo - 287176
  */
-public class VentanaConsultaFamilia extends javax.swing.JFrame {
+public class VentanaConsultaFamilia extends javax.swing.JFrame implements Observador {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaConsultaFamilia.class.getName());
 
@@ -30,6 +31,7 @@ public class VentanaConsultaFamilia extends javax.swing.JFrame {
         this.controlador = controlador;
         this.setLocationRelativeTo(null);
         this.cargarDatos();
+        this.controlador.registrarObservador(this);
     }
 
     public void cargarDatos() {
@@ -47,6 +49,11 @@ public class VentanaConsultaFamilia extends javax.swing.JFrame {
                     + this.controlador.cantidadAdopcionesDeFamilia(familia);
         }
         this.lstFamilias.setListData(lineas);
+    }
+
+    @Override
+    public void actualizar() {
+        this.cargarDatos();
     }
 
     /**
@@ -67,6 +74,11 @@ public class VentanaConsultaFamilia extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consulta de familia");
         setAlwaysOnTop(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         buttonGroup1.add(rbApellido);
         rbApellido.setSelected(true);
@@ -120,6 +132,10 @@ public class VentanaConsultaFamilia extends javax.swing.JFrame {
     private void rbAdopcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAdopcionesActionPerformed
         this.cargarDatos();
     }//GEN-LAST:event_rbAdopcionesActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.controlador.quitarObservador(this);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

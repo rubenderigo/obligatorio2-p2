@@ -17,7 +17,6 @@ public class VentanaAltaAnimal extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaAltaAnimal.class.getName());
 
     private Controlador controlador;
-    private VentanaPrincipal principal;
 
     /**
      * Creates new form VentanaAltaAnimal
@@ -26,10 +25,9 @@ public class VentanaAltaAnimal extends javax.swing.JFrame {
         initComponents();
     }
 
-    public VentanaAltaAnimal(Controlador controlador, VentanaPrincipal principal) {
+    public VentanaAltaAnimal(Controlador controlador) {
         initComponents();
         this.controlador = controlador;
-        this.principal = principal;
         setLocationRelativeTo(null);
     }
 
@@ -163,7 +161,6 @@ public class VentanaAltaAnimal extends javax.swing.JFrame {
         try {
             this.controlador.altaAnimal(txtCodigo.getText().trim(), txtNombre.getText().trim(), txtTemperamento.getText().trim(), txtPeso.getText().trim(), rbDisponible.isSelected());
             JOptionPane.showMessageDialog(this, "Animal agregado");
-            this.principal.actualizar();
             this.txtCodigo.setText("");
             this.txtNombre.setText("");
             this.txtTemperamento.setText("");
