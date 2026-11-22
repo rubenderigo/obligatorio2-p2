@@ -36,6 +36,12 @@ public class Obligatorio2 {
             controlador.altaEmpresa("Pedigree", "1001", "Av. Italia 1234");
             controlador.altaEmpresa("Dog Chow", "1002", "18 de Julio 999");
 
+            controlador.registrarDonacion(controlador.getEmpresas().get(0), 1, "50");
+            controlador.registrarDonacion(controlador.getEmpresas().get(1), 2, "30");
+            controlador.registrarDonacion(controlador.getEmpresas().get(0), 3, "20");
+            controlador.registrarDonacion(controlador.getEmpresas().get(1), 4, "10");
+            controlador.registrarDonacion(controlador.getEmpresas().get(0), 1, "25");
+
             controlador.realizarAdopcion(controlador.getAnimalesDisponibles().get(0), controlador.getFamilias().get(0), "Primera adopcion");
             controlador.realizarAdopcion(controlador.getAnimalesDisponibles().get(0), controlador.getFamilias().get(1), "Segunda adopcion");
         } catch (DatoInvalidoException e) {

@@ -40,4 +40,18 @@ public class Donacion implements Serializable {
         return this.kilos;
     }
 
+    public String getNombreTipo() {
+        String nombre;
+        if (this.tipo == 1) {
+            nombre = "Perros grandes";
+        } else if (this.tipo == 2) {
+            nombre = "Perros chicos";
+        } else if (this.tipo == 3) {
+            nombre = "Perros adultos";
+        } else {
+            nombre = "Otra";
+        }
+        return nombre;
+    }
+
 }

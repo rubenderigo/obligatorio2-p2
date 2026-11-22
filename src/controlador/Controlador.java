@@ -11,6 +11,7 @@ import modelo.Sistema;
 import modelo.Familia;
 import modelo.Empresa;
 import modelo.Adopcion;
+import modelo.Donacion;
 
 /**
  *
@@ -180,5 +181,9 @@ public class Controlador {
 
     public int cantidadAdopcionesDeFamilia(Familia familia) {
         return this.sistema.cantidadAdopcionesDeFamilia(familia);
+    }
+
+    public ArrayList<Donacion> getDonaciones() {
+        return this.sistema.getDonaciones();
     }
 }
