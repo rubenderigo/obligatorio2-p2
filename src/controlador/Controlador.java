@@ -13,6 +13,11 @@ import modelo.Familia;
 import modelo.Empresa;
 import modelo.Adopcion;
 import modelo.Donacion;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  *
@@ -187,7 +192,7 @@ public class Controlador {
     public ArrayList<Donacion> getDonaciones() {
         return this.sistema.getDonaciones();
     }
-    
+
     public String generarPagina(String nombre, String ubicacion) throws DatoInvalidoException {
         if (nombre.equals("")) {
             throw new DatoInvalidoException("Debe ingresar el nombre del archivo");
@@ -208,5 +213,19 @@ public class Controlador {
         this.sistema.generarPagina(ruta);
         File archivo = new File(ruta);
         return archivo.getAbsolutePath();
+    }
+
+    public void guardarDatos() throws IOException {
+        FileOutputStream archivo = new FileOutputStream("datos.ser");
+        ObjectOutputStream datos = new ObjectOutputStream(archivo);
+        datos.writeObject(this.sistema);
+        datos.close();
+    }
+
+    public void recuperarDatos() throws IOException, ClassNotFoundException {
+        FileInputStream archivo = new FileInputStream("datos.ser");
+        ObjectInputStream datos = new ObjectInputStream(archivo);
+        this.sistema = (Sistema) datos.readObject();
+        datos.close();
     }
 }

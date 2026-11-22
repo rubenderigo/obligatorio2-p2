@@ -7,6 +7,8 @@ package vista;
 import controlador.Controlador;
 import java.util.ArrayList;
 import modelo.Animal;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -61,6 +63,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.lstAnimales.setListData(lineas);
     }
 
+    public void guardarYSalir() {
+        try {
+            this.controlador.guardarDatos();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos");
+        }
+        System.exit(0);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -103,6 +114,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Refugio de perros");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         lblTotal.setText("Total de animales: 0");
 
@@ -187,12 +203,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuVarios.add(menuGenerarPagina);
 
         menuRecuperar.setText("Recuperar datos");
+        menuRecuperar.addActionListener(this::menuRecuperarActionPerformed);
         menuVarios.add(menuRecuperar);
 
         menuAutores.setText("Autores");
+        menuAutores.addActionListener(this::menuAutoresActionPerformed);
         menuVarios.add(menuAutores);
 
         menuSalir.setText("Salir");
+        menuSalir.addActionListener(this::menuSalirActionPerformed);
         menuVarios.add(menuSalir);
 
         jMenuBar1.add(menuVarios);
@@ -310,6 +329,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaGenerarPagina ventana = new VentanaGenerarPagina(this.controlador);
         ventana.setVisible(true);
     }//GEN-LAST:event_menuGenerarPaginaActionPerformed
+
+    private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
+        this.guardarYSalir();
+    }//GEN-LAST:event_menuSalirActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.guardarYSalir();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void menuRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRecuperarActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this, "Se reemplazaran todos los datos actuales. Desea continuar?",
+                "Recuperar datos", JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.YES_OPTION) {
+            try {
+                this.controlador.recuperarDatos();
+                this.actualizar();
+                JOptionPane.showMessageDialog(this, "Datos recuperados");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "No hay datos guardados para recuperar");
+            } catch (ClassNotFoundException e) {
+                JOptionPane.showMessageDialog(this, "No se pudieron recuperar los datos");
+            }
+        }
+    }//GEN-LAST:event_menuRecuperarActionPerformed
+
+    private void menuAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAutoresActionPerformed
+        VentanaAutores ventana = new VentanaAutores();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_menuAutoresActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
